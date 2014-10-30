@@ -19,8 +19,6 @@ public class Thunder {
 	private final GpioController gpio;
 
 	private final GpioPinDigitalOutput pin;
-	private final GpioPinDigitalOutput pin2;
-	private final GpioPinDigitalOutput pin3;
 
 	private long lastPlayed = -1;
 
@@ -30,16 +28,21 @@ public class Thunder {
 	@Autowired
 	private BackgroundMusic music;
 
+	private boolean playing;
+
 	public Thunder() {
 		gpio = GpioFactory.getInstance();
 
-		pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, "light1", PinState.LOW);
-		pin2 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "light2", PinState.LOW);
-		pin3 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03, "light3", PinState.LOW);
+		playing = false;
+
+		pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_06, "light1", PinState.LOW);
 	}
 
 	public void playThunder(boolean startMusicAgain) {
 		Thread thunder = new Thread(() -> {
+
+			playing = true;
+
 			logger.info("Starting thunder");
 
 			music.stop();
@@ -52,14 +55,10 @@ public class Thunder {
 				Thread.sleep(1000);
 				for(int i = 0; i < times; i++) {
 					pin.high();
-					pin2.high();
-					pin3.high();
 
 					Thread.sleep((int) (Math.random() * 150 + 50));
 
 					pin.low();
-					pin2.low();
-					pin3.low();
 
 					if (Math.random() < 0.3) {
 						Thread.sleep((int) (Math.random() * 100 + 50));
@@ -82,6 +81,8 @@ public class Thunder {
 			} catch(InterruptedException e) {
 				logger.error("{}", e);
 			}
+
+			playing = false;
 		});
 
 		thunder.start();
@@ -95,5 +96,9 @@ public class Thunder {
 		Date time = new Date(lastPlayed);
 		DateFormat formatter = new SimpleDateFormat();
 		return formatter.format(time);
+	}
+
+	public boolean isPlaying() {
+		return playing;
 	}
 }

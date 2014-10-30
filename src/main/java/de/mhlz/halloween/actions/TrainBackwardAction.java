@@ -27,7 +27,7 @@ public class TrainBackwardAction extends ModelAction {
 			logger.info("starting to move...");
 
 			train.backwards();
-			train.moveFor(10000);
+			train.moveFor(5500);
 
 			logger.info("done");
 			moving = false;

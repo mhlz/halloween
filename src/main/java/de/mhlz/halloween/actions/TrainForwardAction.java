@@ -28,7 +28,7 @@ public class TrainForwardAction extends ModelAction {
 			logger.info("starting to move...");
 
 			train.forward();
-			train.moveFor(10000);
+			train.moveFor(5500);
 
 			logger.info("done");
 			moving = false;

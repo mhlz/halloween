@@ -1,5 +1,6 @@
 package de.mhlz.halloween;
 
+import com.pi4j.io.gpio.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,7 +14,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableAutoConfiguration
 public class Application extends WebMvcConfigurerAdapter {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
+//		GpioController gpio = GpioFactory.getInstance();
+//
+//		GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "train dir", PinState.LOW);
+//
+//		pin.high();
+//
+//		System.out.print("high");
+//
+//		while(true) {
+//			Thread.sleep(500);
+//		}
+
 		SpringApplication.run(Application.class, args);
 	}
 
