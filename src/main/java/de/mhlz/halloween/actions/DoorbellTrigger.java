@@ -28,7 +28,7 @@ public class DoorbellTrigger extends GpioAction {
 
 	@Override
 	public Pin getPin() {
-		return RaspiPin.GPIO_05;
+		return RaspiPin.GPIO_07;
 	}
 
 	@Override
