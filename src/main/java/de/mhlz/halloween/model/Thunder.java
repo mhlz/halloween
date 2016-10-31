@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +34,7 @@ public class Thunder {
 
 		playing = false;
 
-		pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_06, "light1", PinState.LOW);
+		pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_06, "light1", PinState.HIGH);
 	}
 
 	public void playThunder(boolean startMusicAgain) {
@@ -54,11 +53,11 @@ public class Thunder {
 			try {
 				Thread.sleep(1000);
 				for(int i = 0; i < times; i++) {
-					pin.high();
+					pin.low();
 
 					Thread.sleep((int) (Math.random() * 150 + 50));
 
-					pin.low();
+					pin.high();
 
 					if (Math.random() < 0.3) {
 						Thread.sleep((int) (Math.random() * 100 + 50));
